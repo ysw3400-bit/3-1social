@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "groupReport": {
+      "title": "Group Report",
+      "description": "Student group inquiry report submission for customs comparison",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the submission"
+        },
+        "topic": {
+          "type": "string",
+          "description": "Inquiry topic (wedding or chuseok)",
+          "enum": ["wedding", "chuseok"]
+        },
+        "teamName": {
+          "type": "string",
+          "description": "Group name (e.g., 1모둠)",
+          "maxLength": 50
+        },
+        "teamMascot": {
+          "type": "string",
+          "description": "Group mascot emoji",
+          "maxLength": 10
+        },
+        "teamMemberCount": {
+          "type": "number",
+          "description": "Number of students in the team"
+        },
+        "selectedChangedItems": {
+          "type": "array",
+          "description": "List of discovered changes"
+        },
+        "groupReasonInput": {
+          "type": "string",
+          "description": "Group reason statement",
+          "maxLength": 500
+        },
+        "selectedStayedHearts": {
+          "type": "array",
+          "description": "List of unchanging value card ids"
+        },
+        "groupStayedInput": {
+          "type": "string",
+          "description": "Group unchanging heart sentence",
+          "maxLength": 500
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Submission time string"
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Unix timestamp in milliseconds"
+        }
+      },
+      "required": ["id", "topic", "teamName", "groupReasonInput", "groupStayedInput"]
+    }
+  },
+  "firestore": {
+    "/groupReports/{reportId}": {
+      "schema": "groupReport",
+      "description": "Real-time student group report collection accessible by classroom tablets and teacher screen"
+    }
+  }
+}

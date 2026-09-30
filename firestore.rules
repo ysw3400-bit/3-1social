@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-\\s()가-힣]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidReport(data) {
+      return data.keys().hasAll(['id', 'topic', 'teamName', 'groupReasonInput', 'groupStayedInput'])
+        && data.id is string && data.id.size() <= 128
+        && data.topic in ['wedding', 'chuseok']
+        && data.teamName is string && data.teamName.size() <= 60
+        && data.groupReasonInput is string && data.groupReasonInput.size() <= 1000
+        && data.groupStayedInput is string && data.groupStayedInput.size() <= 1000;
+    }
+
+    match /groupReports/{reportId} {
+      allow read: if true;
+      allow create, update: if isValidId(reportId) && isValidReport(incoming());
+      allow delete: if isValidId(reportId);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

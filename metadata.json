@@ -1,0 +1,6 @@
+{
+  "name": "🔎 풍습 탐정단 - 옛날과 오늘날의 풍습 탐구",
+  "description": "초등학교 3학년 사회과 협동형 탐구 웹앱: 옛날과 오늘날의 풍습을 비교하고 친구와 함께 탐정처럼 생각을 모아보아요!",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
